@@ -5,7 +5,7 @@
 </script>
 
 <main>
-    <div class="w-[200px] h-[300px]">
+    <div class="card-size">
         <img src={src} alt={"Moldura de carta de herói"} />
     </div>
 </main>

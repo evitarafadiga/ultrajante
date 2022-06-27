@@ -1,0 +1,34 @@
+<script>
+
+    export let userdeck = [];
+
+    function inviteToBattle() {
+        console.log('convidando...');
+        
+    }
+</script>
+
+<div class="border bg-gold w-[242px] h-[275px] rounded-[15px] shadow mt-[56px]">
+    <div class="w-[1/2] m-auto ">
+        <div class="m-[10px]">
+            <form on:submit|preventDefault={inviteToBattle}>
+                <label for="nicknameInput" class="">Nickname: </label>
+                <input
+                      type="nickname"
+                      class="border rounded"
+                      id="nicknameInput"
+                      aria-describedby="nicknameHelp"
+                      placeholder=""
+                />
+                <select id="deckInput" class="m-[10px] w-[200px] h-[32px]">
+                    {#each userdeck as deck}
+                        <option value="deck.id">{deck.name}</option>
+                    {:else}
+                    	<p>Sem decks!</p>
+                    {/each}         
+                </select>
+                <button type="submit" class="m-[10px] w-[74px] h-[32px] rounded bg-yellow-400 shadow float-right">Convidar</button>
+            </form>
+        </div>
+    </div>
+</div>

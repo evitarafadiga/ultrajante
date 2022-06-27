@@ -1,13 +1,12 @@
 <script>
 
-    import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-    
+  import { getAuth, signInWithPopup, getRedirectResult, GoogleAuthProvider } from "firebase/auth";
+  import { goto } from "$app/navigation";
 
-    export let title;
-    const googleIcon = "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg";
-    const provider = new GoogleAuthProvider();
-
-    const auth = getAuth();
+  export let title;
+  const googleIcon = "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg";
+  const provider = new GoogleAuthProvider();
+  const auth = getAuth();
   function signInGoogle() {
       signInWithPopup(auth, provider)
     .then((result) => {
@@ -16,7 +15,7 @@
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      // ...
+      goto("/");
     }).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -26,6 +25,7 @@
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
       // ...
+      console.log("Erro de login: ", error);
     });
   }
 
@@ -48,4 +48,3 @@
         </p>
     </div>  
 </button>
-

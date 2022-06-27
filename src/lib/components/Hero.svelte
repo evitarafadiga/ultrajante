@@ -2,7 +2,7 @@
     let src = '/mage.jpg';
 </script>
 
-<main class="w-[200px] h-[300px]">
+<main class="card-size">
     <img src={src} alt="Imagem de herói" />
 </main>
 

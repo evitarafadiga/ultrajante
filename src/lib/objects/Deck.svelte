@@ -1,5 +1,6 @@
 <script>
     import Card from "./Card.svelte";
+    import CardVerse from "./CardVerse.svelte";
 
     let src = '';
     export let cardId;
@@ -8,14 +9,24 @@
      console.log("selecionado!") 
   }
 </script>
+<div class="">
+    <div class="card-second bg-stone-200 flex float-right">
+        <CardVerse func={selectCard}/>
+        <CardVerse func={selectCard}/>
+        <CardVerse func={selectCard}/>
+        <CardVerse func={selectCard}/>
+        <CardVerse func={selectCard}/>
+    </div>
 
-<main class="inline-block absolute h-[300px] w-[600px] top-[160px] flex">
-    <Card func={selectCard}/>
-    <Card func={selectCard}/>
-    <Card func={selectCard}/>
-    <Card func={selectCard}/>
-    <Card func={selectCard}/>
-</main>
+    <div class="justify-center pt-[179px] h-[350px] w-[750px] bg-stone-200 flex">
+        <Card func={selectCard}/>
+        <Card func={selectCard}/>
+        <Card func={selectCard}/>
+        <Card func={selectCard}/>
+        <Card func={selectCard}/>
+    </div>
+</div>
+
 
 <style>
     
