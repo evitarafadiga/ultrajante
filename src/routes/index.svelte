@@ -7,6 +7,7 @@
 
   import Deck from "$lib/objects/Deck.svelte";
   import InviteBox from "$lib/components/InviteBox.svelte";
+  import Chat from "$lib/objects/Chat.svelte";
 
 	const firebaseApp = browser && (getApps().length === 0 ? initializeApp(firebaseConfig) : getApp());
 	
@@ -15,7 +16,7 @@
 	console.log({ firebaseApp, db });
 
   
-  const colRef = browser && collection(db, "usercards");
+  const colRef = browser && collection(db, "usercard");
   
   const checkUsers = browser && onSnapshot(colRef, (querySnapshot) => {
       let deckFromUser = [];
@@ -25,7 +26,6 @@
       });
       console.table(deckFromUser);
   }) 
-  
   
   const auth = getAuth();
   
@@ -42,7 +42,7 @@
 <div class="grid grid-cols-4 gap-[20px]">
   <div class="col-start-2 row-start-1 col-span-3">
     01
-    <h1>Bem vind@ a Ultrajante!</h1>
+    <h1>Bem vind@ a Ultrajante, !</h1>
     <p>DB: {db}, firebaseApp {firebaseApp}</p>
   </div>
   <div class="col-start-1 row-start-2 col-end-2">
@@ -51,7 +51,8 @@
   </div>
   <div class="col-end-6 row-start-2">
     03
-    <button on:click={signOutAll}>Sair</button>
+    <button class="btn float-right" on:click={signOutAll}>Sair</button>
+    <Chat></Chat>
   </div>
   <div class="col-start-2 row-end-3 col-end-3 col-span-3">
     04

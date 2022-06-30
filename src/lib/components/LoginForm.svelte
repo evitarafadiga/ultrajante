@@ -1,16 +1,18 @@
 <script>
-  import { goto } from "$app/navigation";
-  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-  
-  import { getFirestore, collection, onSnapshot, query, where, doc, setDoc, addDoc, serverTimestamp } from "firebase/firestore";
-  import { browser } from "$app/env";
-  import { initializeApp, getApps, getApp } from "firebase/app";
-  import { firebaseConfig } from "$lib/firebaseConfig";
-  const firebaseApp = browser && (getApps().length === 0 ? initializeApp(firebaseConfig) : getApp());
-  const db = browser && getFirestore();
-  
-  export let title;
-  const auth = getAuth();
+    import { goto } from "$app/navigation";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+    
+    import { getFirestore, collection, onSnapshot, query, where, doc, getDocs, setDoc, addDoc, serverTimestamp } from "firebase/firestore";
+    import { browser } from "$app/env";
+    import { initializeApp, getApps, getApp } from "firebase/app";
+    import { firebaseConfig } from "$lib/firebaseConfig";
+    const firebaseApp = browser && (getApps().length === 0 ? initializeApp(firebaseConfig) : getApp());
+    const db = browser && getFirestore();
+    
+    export let title
+    let b = false;
+    const auth = getAuth();
+
   function login() {
     let email = document.getElementById("emailInput").value;
     let password = document.getElementById("passInput").value;
@@ -26,14 +28,26 @@
           const errorCode = error.code;
           const errorMessage = error.message;
         });
-    } else {
+    } else if (checkUsernameAvailability() === false) {
+      
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
           console.log(user);
           
+          let nickname = document.getElementById("nicknameInput").value;
+          
           (async ()=> {
-            let dataAgora = new Date().toLocaleString();
+            const userRef = await addDoc(collection(db, 'user'), {
+              nickname: nickname,
+              userId: user.uid,
+              level: 0,
+              points: 0,
+              emeralds: 0,
+              spirits: 0,
+              createdAt: serverTimestamp(), 
+            });
+
             const cardsRef = await addDoc(collection(db, 'usercard'), {
               cardKey: 'cebollurl',
               userId: user.uid,
@@ -55,7 +69,7 @@
 
             const frameRef = await addDoc(collection(db, 'userframe'), {
               title: "Frame Padrão",
-              description: "Deck gerado automaticamente ao se cadastrar em Ultrajante",
+              description: "Frame padrão de cartas Ultrajante",
               userId: user.uid,
               createdAt: serverTimestamp(),
             });
@@ -68,6 +82,22 @@
           const errorMessage = error.message;
         });
     }
+  }
+
+  function checkUsernameAvailability() { 
+    return (async () => {
+      let nickname = document.getElementById("nicknameInput").value;
+      const q = query(collection(db, "user"), where("nickname", "==", nickname));
+
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        if(doc) {
+          alert('Nome de usuário '+nickname+' indisponível!');
+          console.log(checkUsernameAvailability());
+        }
+      });
+    }) ();
+    
   }
   
 </script>
@@ -90,6 +120,14 @@
               <div id="emailHelp" class="text-stone-400 text-sm">
                   Nós nunca compartilharemos seu e-mail com ninguém.
               </div>
+              <label for="nicknameInput" class="form-label">Nickname: </label>
+              <input
+                type="nickname"
+                class="border rounded"
+                id="nicknameInput"
+                aria-describedby="nicknameHelp"
+                placeholder="Escolha um nome de usuário"
+              />
             {/if}
           </div>
           <div class="mb-[3px]">
