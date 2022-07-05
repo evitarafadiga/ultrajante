@@ -1,5 +1,6 @@
 import adapter from '@sveltejs/adapter-auto';
 import preprocess from "svelte-preprocess";
+import injectSocketIO from "./server/socket-handler.js"; // <- Import the new function
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -9,7 +10,17 @@ const config = {
 		}),
 	],
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		vite: {
+            plugins: [
+                {
+                    name: "sveltekit-socket-io",
+                    configureServer(server) {
+                        injectSocketIO(server.httpServer);
+                    }
+                }
+            ]
+        }
 	}
 };
 

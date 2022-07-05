@@ -1,5 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
+	<script type="module">
+        import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+      
+        window.socket = io(
+			//"https://ultrajante-server.evitarafadiga.repl.co" 
+			"localhost:5000", {
+            auth: {
+                username: "usuario1",
+                password: "passwd"
+            }
+        });
+        socket.on("connect_error", console.log);
+    </script>
+
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
@@ -9,4 +24,5 @@
 	<body>
 		<div>%sveltekit.body%</div>
 	</body>
+	
 </html>

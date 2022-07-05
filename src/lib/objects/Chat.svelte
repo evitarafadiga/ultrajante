@@ -1,32 +1,57 @@
-<script>
-    import ChatMessage from "$lib/components/ChatMessage.svelte";
-    import Box from "./Box.svelte";
-    export let messageId;
-    export let nickname
-    export let timestamp;
-    export let content;
-    
+<script lang="ts">
+  import ChatMessage from "$lib/components/ChatMessage.svelte";
+  import Box from "./Box.svelte";
+  export let messageId;
+  export let nickname
+  export let timestamp;
+  export let content;
+
+  import { io } from "$lib/realtime";
+  import { onMount } from "svelte";
+
+  let textfield = ""
+  let username = ""
+
+  let messages = []
+
+  onMount(() => {
+        io.on("message", message => { // Listen to the message event
+            messages = [...messages, message]
+        })
+        io.on("nickname", name => { // Another listener for the name:
+            username = name // Update the name so it can be displayed
+        })
+    })
+
+  function sendMessage() {
+      const message = textfield.trim()
+      if(!message) return
+      
+      textfield = ""
+      io.emit("message", message) // Send the message
+  }
 </script>
+
 
 <main>
     <Box title="Chat">
-        <div class="">
-            <div class="overflow-x-hidden p-[0] relative">
-                <div class="translate-x-0 translate-y-0 box-size overflow-auto p-[1px] easy-in-out">
-                    <ChatMessage message="Olá, tudo bem? ;D" nickname="Homem-macaco"></ChatMessage>
-                    <ChatMessage message="Lá vem o homem macaco" nickname="Teste"></ChatMessage>
-                    <ChatMessage message="correndo atrás de mim" nickname="Teste"></ChatMessage>
-                    <ChatMessage message="o homem macaco, que não tem alma" nickname="Teste"></ChatMessage>
-                    <ChatMessage message="e nem coração" nickname="Teste"></ChatMessage>
-                    <ChatMessage message="fim" nickname="Oi"></ChatMessage>
-                    <ChatMessage message="fim" nickname="Teste"></ChatMessage>          
-                </div>
-            </div>
-            <div class="border bg-stone-200">
-                <div class="w-[274px] p-1">
-                    <input class="h-[30px]" type="text" placeholder="Envie sua mensagem...">
-                </div>
+      <div class="overflow-y-scroll flex-col-reverse h-[250px] w-[300px]">
+        <div class="overflow-x-hidden justify-end p-[0]">
+            <div class="translate-x-0 translate-y-0 overflow-auto easy-in-out">
+              {#each messages as message}
+                <ChatMessage message={message.message} nickname={message.from} timestamp={message.time}></ChatMessage>
+              {/each}       
             </div>
         </div>
+      </div>
+      <div class="bg-white-200">
+        <form action="#" on:submit|preventDefault={sendMessage}
+            class="px-3 py-1 border-t border-stone-400 text-black shrink-0 flex items-center">
+            <input type="text" bind:value={textfield} placeholder="Envie sua mensagem..." class="bg-transparent border-none px-4 py-3 w-full" />
+            <button type="submit" class="btn">Send</button>
+        </form>
+      </div>
     </Box>
+    
 </main>
+

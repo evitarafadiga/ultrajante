@@ -24,9 +24,10 @@
 
     .box-size {
       min-width: 250px;
-      min-height: 352px;
+      min-height: 200px;
       margin: 10px;
     }
+
     /* w-[74px] h-[32px] rounded bg-lime-400 shadow float-right
      ... */
   }
