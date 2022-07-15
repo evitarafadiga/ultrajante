@@ -1,7 +1,8 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
-const ACTIONS_DIR_PATH = path.resolve(__dirname, 'actions');
+const ACTIONS_DIR_PATH = './server/actions';
+//const ACTIONS_DIR_PATH = new URL ('./actions', import.meta.url).href;
 
 const actions = new Map();
 
@@ -16,8 +17,9 @@ function load() {
         if (!dirent.name.endsWith(".js") || !dirent.isFile()) continue;
         
         const abs_path = path.resolve(ACTIONS_DIR_PATH, dirent.name);
-        delete require.cache[abs_path];
-        const action = require(abs_path);
+        console.log(abs_path);
+        //const action = import (abs_path);
+        const action = new URL ('./actions', import.meta.url).href;
 
         actions.set(path.parse(dirent.name).name, action);
     }
@@ -25,4 +27,4 @@ function load() {
     return actions;
 }
 
-module.exports = load;
+export default load;

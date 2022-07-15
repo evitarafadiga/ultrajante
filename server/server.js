@@ -14,5 +14,5 @@ injectSocketIO(server)
 app.use(handler);
 
 server.listen(3000, () => {
-  console.log('Running on http://localhost:5000');
+  console.log('Running on http://localhost:3000');
 });

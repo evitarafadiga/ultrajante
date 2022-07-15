@@ -23,6 +23,7 @@ const config = {
                                     time: new Date().toLocaleString()
                                 });
                             });
+
                         });           
 
                         console.log('SocketIO injected');
