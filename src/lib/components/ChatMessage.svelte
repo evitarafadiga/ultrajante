@@ -1,15 +1,17 @@
 <script>
-	
     export let nickname;
 	export let message;
-    export let timestamp;	
+    export let timestamp;
 	
+	console.log("AAA", nickname)
+	console.log(message)
+	console.log(timestamp)
 </script>
 
 <div class="mb-[10px] text-[12px] break-all break-words">
 	<div class="float-right">
         <span class="ml-[10px] mr-[10px] text-gray-400 text-[10px]">				
-			{timestamp.toLocaleString([], {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit', hour12: false})}					
+			{timestamp}					
 		</span>
     </div>
     <div class="block">

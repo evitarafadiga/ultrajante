@@ -22,11 +22,13 @@ const config = {
                                     message: message,
                                     time: new Date().toLocaleString()
                                 });
+
+                                console.log(message.toString())
                             });
 
                         });           
 
-                        console.log('SocketIO injected');
+                        console.log('SocketIO injetado');
                     }
                 }
             ]

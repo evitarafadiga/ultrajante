@@ -11,30 +11,17 @@
 
 	const firebaseApp = browser && (getApps().length === 0 ? initializeApp(firebaseConfig) : getApp());
 	const db = browser && getFirestore();
-	console.log({ firebaseApp, db });
 
   const auth = getAuth();
-  
   const colRef = browser && collection(db, "usercard");
-  const globalChatRef = browser && collection(db, "globalchat");
-  
+
   const checkUsers = browser && onSnapshot(colRef, (querySnapshot) => {
       let deckFromUser = [];
       querySnapshot.forEach((doc) => {
           let usercards = { ...doc.data(), id: doc.id };
           deckFromUser = [usercards, ...deckFromUser];
       });
-      console.table(deckFromUser);
   })
-
-  const checkGlobalChat = browser && onSnapshot(globalChatRef, (querySnapshot) => {
-      let globalChatMessages = [];
-      querySnapshot.forEach((doc) => {
-          let globalMessages = { ...doc.data(), id: doc.id };
-          globalChatMessages = [globalMessages, ...globalChatMessages];
-      });
-      console.table(globalChatMessages);
-  }) 
   
   function signOutAll () {
       signOut(auth).then(() => {

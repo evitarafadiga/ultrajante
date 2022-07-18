@@ -1,26 +1,29 @@
 <script lang="ts">
-  import ChatMessage from "$lib/components/ChatMessage.svelte";
-  import Box from "./Box.svelte";
-  export let messageId;
-  export let nickname
-  export let timestamp;
-  export let content;
-
   import { io } from "$lib/realtime";
   import { onMount } from "svelte";
+  
+  import ChatMessage from "$lib/components/ChatMessage.svelte";
+  import Box from "./Box.svelte";
 
   let textfield = ""
-  let username = ""
-
-  let messages = []
-
+  let nickname = ""  
+  
+  let messages = [];
+  
   onMount(() => {
+
         io.on("message", message => { // Listen to the message event
             messages = [...messages, message]
         })
         io.on("nickname", name => { // Another listener for the name:
-            username = name // Update the name so it can be displayed
+            nickname = name // Update the name so it can be displayed
         })
+
+        io.on('history-message', (data) => {
+          messages = data;
+        }) 
+
+        io.emit('history-message');
     })
 
   function sendMessage() {
@@ -30,7 +33,7 @@
       textfield = ""
       io.emit("message", message) // Send the message
   }
-</script>
+</script> 
 
 
 <main>
