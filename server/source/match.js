@@ -1,10 +1,10 @@
-const { v4: uuidv4 } = require('uuid');
+import { uuid } from 'uuidv4';
 
-const list = new Map();
+export const list = new Map();
 
-function create() {
+export function create() {
     let id = null;
-    do id = uuidv4(); while(list.has(id));
+    do id = uuid(); while(list.has(id));
 
     const match = { id, playerA: null, playerB: null }
     list.set(id, match);
@@ -12,7 +12,7 @@ function create() {
     return match;
 }
 
-function damage(match, player, target, move, hero) {
+export function damage(match, player, target, move, hero) {
     list.get(id, match);
 
     if (player.id === match.playerA.id) target = playerB;
@@ -23,7 +23,7 @@ function damage(match, player, target, move, hero) {
     return damage;
 }
 
-function destroy(id) {
+export function destroy(id) {
     const match = list.get(id);
     if (!match) return;
 
@@ -42,7 +42,7 @@ function destroy(id) {
     list.delete(id);
 }
 
-module.exports = {
+export default{
     create, destroy, damage,
     list: () => [...list.values()]
 }

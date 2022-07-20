@@ -1,6 +1,6 @@
-const load = require("../actions");
+import load from "../actions.js";
 
-module.exports = function reload(socket, data) {
+export function reload(socket, data) {
     load();
     return { message: "actions reloaded" };
 }

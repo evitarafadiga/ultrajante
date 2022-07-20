@@ -1,5 +1,5 @@
-const { list } = require("../source/match");
+import { list } from "../source/match.js";
 
-module.exports = function listMatch(socket, data) {
+export function listMatch(socket, data) {
     return list();
 }

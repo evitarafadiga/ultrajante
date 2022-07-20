@@ -1,6 +1,6 @@
-const match = require("../source/match");
+import match from "../source/match.js";
 
-module.exports = function selectMove(socket, data) {
+export function selectMove(socket, data) {
     if (!socket.match) return { message: "Any match founded" };
     if (!data.move) return { message: "Move not selected" };
 

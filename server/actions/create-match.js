@@ -1,6 +1,6 @@
-const { create } = require("../source/match");
+import { create } from "../source/match.js";
 
-module.exports = function createMatch(socket, data) {
+export function createMatch(socket, data) {
     if (socket.match) return { message: "Not created" };
 
     const match = create();

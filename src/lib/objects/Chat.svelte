@@ -4,12 +4,12 @@
   
   import ChatMessage from "$lib/components/ChatMessage.svelte";
   import Box from "./Box.svelte";
-
+  
   let textfield = ""
   let nickname = ""  
   
   let messages = [];
-  
+ 
   onMount(() => {
 
         io.on("message", message => { // Listen to the message event
@@ -19,11 +19,11 @@
             nickname = name // Update the name so it can be displayed
         })
 
-        io.on('history-message', (data) => {
-          messages = data;
+        io.on('global-message', (data) => {
+            messages = data;
         }) 
 
-        io.emit('history-message');
+        io.emit('global-message');
     })
 
   function sendMessage() {
@@ -38,14 +38,12 @@
 
 <main>
     <Box title="Chat">
-      <div class="overflow-y-scroll flex-col-reverse h-[250px] w-[300px]">
-        <div class="overflow-x-hidden justify-end p-[0]">
-            <div class="translate-x-0 translate-y-0 overflow-auto easy-in-out">
-              {#each messages as message}
+      <div class="overflow-auto break-words justify-start h-[281px] w-[339px]">
+            <div class="translate-x-0 translate-y-0 flex flex-col easy-in-out inline">
+              {#each messages as message(message)}
                 <ChatMessage message={message.message} nickname={message.from} timestamp={message.time}></ChatMessage>
               {/each}       
             </div>
-        </div>
       </div>
       <div class="bg-white-200">
         <form action="#" on:submit|preventDefault={sendMessage}
@@ -54,7 +52,6 @@
             <button type="submit" class="btn">Send</button>
         </form>
       </div>
-    </Box>
-    
+    </Box> 
 </main>
 

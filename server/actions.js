@@ -19,9 +19,9 @@ function load() {
         const abs_path = path.resolve(ACTIONS_DIR_PATH, dirent.name);
         console.log(abs_path);
         //const action = import (abs_path);
-        const action = new URL ('./actions', import.meta.url).href;
+        const action = import (new URL (`./actions/${dirent.name}`, import.meta.url).href);
 
-        actions.set(path.parse(dirent.name).name, action);
+        actions.set((dirent.name).name, action);
     }
 
     return actions;

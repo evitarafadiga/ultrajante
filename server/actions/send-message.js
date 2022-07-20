@@ -1,4 +1,4 @@
-module.exports = function sendMessage(socket, data) {
+export function sendMessage(socket, data) {
     
     let date = new Date().toLocaleString;
     let nickname = data.nickname;
