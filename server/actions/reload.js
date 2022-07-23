@@ -1,6 +1,6 @@
 import load from "../actions.js";
 
-export function reload(socket, data) {
+export default function reload(socket, data) {
     load();
     return { message: "actions reloaded" };
 }

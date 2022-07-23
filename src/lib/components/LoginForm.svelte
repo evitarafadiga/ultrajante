@@ -2,15 +2,18 @@
     import { goto } from "$app/navigation";
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
     
-    import { getFirestore, collection, onSnapshot, query, where, doc, getDocs, setDoc, addDoc, serverTimestamp } from "firebase/firestore";
+    import { getFirestore, collection, onSnapshot, query, where, getDocs,addDoc, serverTimestamp } from "firebase/firestore";
     import { browser } from "$app/env";
     import { initializeApp, getApps, getApp } from "firebase/app";
     import { firebaseConfig } from "$lib/firebaseConfig";
+
     const firebaseApp = browser && (getApps().length === 0 ? initializeApp(firebaseConfig) : getApp());
     const db = browser && getFirestore();
     
     export let title
     let b = false;
+    let error = '';
+    let message = '';
     const auth = getAuth();
 
   function login() {
@@ -22,13 +25,17 @@
           const user = userCredential.user;
           localStorage.setItem("uid", user.uid);
           localStorage.setItem("isLoggedIn", true);
+
+          (async () => {const uid = await userData();
+          console.log('post 1',uid)
+            }) ()
           goto("/");
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
         });
-    } else if (checkUsernameAvailability() === false) {
+    } else {
       
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -40,6 +47,7 @@
           (async ()=> {
             const userRef = await addDoc(collection(db, 'user'), {
               nickname: nickname,
+              hashtag: `${Math.round(Math.random() * 9999)}`,
               userId: user.uid,
               level: 0,
               points: 0,
@@ -96,10 +104,30 @@
           console.log(checkUsernameAvailability());
         }
       });
-    }) ();
+    });
+
+    
     
   }
   
+  const userData = async () => {
+      try  {
+        const uid = localStorage.getItem("uid");
+        const submit = await fetch("/api/user", {
+          method: "POST",
+          body: JSON.stringify({
+            uid,
+          }),
+          headers: { "Content-Type": "application/json" }
+        });
+
+        const data = await submit.json();
+        message = data;
+      } catch(err) {
+        error = err;
+      }
+    
+    };
 </script>
 
 <div class="flex justify-center border bg-white w-[476px] h-[275px] rounded-[15px] shadow mt-[56px]">

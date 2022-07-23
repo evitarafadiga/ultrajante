@@ -12,17 +12,6 @@ export function create() {
     return match;
 }
 
-export function damage(match, player, target, move, hero) {
-    list.get(id, match);
-
-    if (player.id === match.playerA.id) target = playerB;
-    if (player.id === match.playerB.id) target = playerA;
-
-    target.hitpoints -= move.damage;
-    
-    return damage;
-}
-
 export function destroy(id) {
     const match = list.get(id);
     if (!match) return;
@@ -43,6 +32,6 @@ export function destroy(id) {
 }
 
 export default{
-    create, destroy, damage,
+    create, destroy,
     list: () => [...list.values()]
 }

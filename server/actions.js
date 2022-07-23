@@ -15,13 +15,15 @@ function load() {
 
     for (const dirent of ACTIONS_DIRENTS) {
         if (!dirent.name.endsWith(".js") || !dirent.isFile()) continue;
-        
+
         const abs_path = path.resolve(ACTIONS_DIR_PATH, dirent.name);
         console.log(abs_path);
         //const action = import (abs_path);
-        const action = import (new URL (`./actions/${dirent.name}`, import.meta.url).href);
+        const action = import(new URL(`./actions/${dirent.name}`, import.meta.url).href);
+        action.then(module => {
+            actions.set(dirent.name.split('.')[0], module.default);
+        })
 
-        actions.set((dirent.name).name, action);
     }
 
     return actions;

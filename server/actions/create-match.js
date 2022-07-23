@@ -1,11 +1,15 @@
 import { create } from "../source/match.js";
+import { createCombatant } from "../source/combatant.js";
 
-export function createMatch(socket, data) {
+export default function createMatch(socket, data) {
     if (socket.match) return { message: "Not created" };
 
     const match = create();
-    match.playerA = socket.id;
-    socket.match = match;
+    const combatant = createCombatant();
 
-    return { message: "Match created!", id: match.id }
+    match.combatant = socket.id;
+    socket.match = match;
+    socket.combatant = combatant;
+
+    return { message: "Match created!", id: match.id, combatant: combatant.id }
 }

@@ -1,6 +1,6 @@
 import match from "../source/match.js";
 
-export function selectMove(socket, data) {
+export default function selectMove(socket, data) {
     if (!socket.match) return { message: "Any match founded" };
     if (!data.move) return { message: "Move not selected" };
 

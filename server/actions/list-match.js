@@ -1,5 +1,5 @@
 import { list } from "../source/match.js";
 
-export function listMatch(socket, data) {
+export default function listMatch(socket, data) {
     return list();
 }

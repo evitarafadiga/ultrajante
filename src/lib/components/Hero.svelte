@@ -1,5 +1,5 @@
 <script>
-    let src = '/mage.jpg';
+    let src = '/mage.png';
 </script>
 
 <main class="card-size">

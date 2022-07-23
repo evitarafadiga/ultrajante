@@ -1,4 +1,4 @@
-export function sendMessage(socket, data) {
+export default function sendMessage(socket, data) {
     
     let date = new Date().toLocaleString;
     let nickname = data.nickname;

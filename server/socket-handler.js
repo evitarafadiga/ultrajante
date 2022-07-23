@@ -7,11 +7,9 @@ const actions = load();
 import { getFirestore, collection, onSnapshot, query, orderBy, doc, limit, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { firebaseConfig } from "../src/lib/firebaseConfig.js";
-import { getAuth } from "firebase/auth";
 
 const firebaseApp = (getApps().length === 0 ? initializeApp(firebaseConfig) : getApp());
 const db = getFirestore(firebaseApp);
-const auth = getAuth();
 const globalChatRef = collection(db, "globalchat");
 
 export default function injectSocketIO(server) {
@@ -24,7 +22,7 @@ export default function injectSocketIO(server) {
         // Generate a random nickname and send it to the client to display it
         let nickname = `Usuário ${Math.round(Math.random() * 999999)}`;
         socket.emit('name', nickname);
-
+        
         // Receive incoming messages and broadcast them
         socket.on('message', (message) => {
             io.emit('message', {
@@ -44,7 +42,6 @@ export default function injectSocketIO(server) {
         socket.on('history-message', (data) => {
             const globalChatMessages = [];
             onSnapshot(globalChatRef, (querySnapshot) => {
-        
                 querySnapshot.forEach((doc) => {
                     const { nickname: from, message, time } = doc.data();
                     globalChatMessages.push({from, message, time});
@@ -73,7 +70,6 @@ export default function injectSocketIO(server) {
         socket.onAny((name, data, response) => {
             const action = actions.get(name);
             if (!action) return;
-            console.log(action)
             const result = action(socket, data);
             if (response instanceof Function) response(result);
         });
