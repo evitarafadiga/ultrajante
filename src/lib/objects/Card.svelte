@@ -11,7 +11,7 @@
     class="flex hover:translate-y-[-20px] relative transition ease-out shadow-black rounded-md card-size bg-stone-900 grid"
 >
     <div class="relative z-[2]"><CardFrame /></div>
-    <div class="absolute z-[1]"><Hero /></div>
+    <div class="absolute z-[1]"><Hero cardId={cardId} /></div>
 </button>
 
 <style>

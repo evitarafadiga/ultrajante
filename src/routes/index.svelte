@@ -2,7 +2,7 @@
   export const load = async ({ fetch }) => {
     const res = await fetch("/api/user");
     const data = await res.json();
-    console.log('get', data);
+    console.log("get", data);
 
     return {
       props: {
@@ -12,27 +12,23 @@
   };
 
   const userData = async () => {
-      try  {
-        const uid = localStorage.getItem("uid");
-        const submit = await fetch("/api/user", {
-          method: "POST",
-          body: JSON.stringify({
-            uid,
-          }),
-          headers: { "Content-Type": "application/json" }
-        });
+    try {
+      const uid = localStorage.getItem("uid");
+      const submit = await fetch("/api/user", {
+        method: "POST",
+        body: JSON.stringify({
+          uid,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
 
-        const data = await submit.json();
-        message = data;
-      } catch(err) {
-        error = err;
-      }
-    
-    };
+      const data = await submit.json();
+      message = data;
+    } catch (err) {
+      error = err;
+    }
+  };
 
-    (async () => {const uid = await userData();
-      console.log('post 1',uid)
-  }) ()
 </script>
 
 <script>
@@ -51,9 +47,9 @@
   import { browser } from "$app/env";
   import { getAuth, signOut } from "firebase/auth";
 
-  import Deck from "$lib/objects/Deck.svelte";
   import InviteBox from "$lib/components/InviteBox.svelte";
   import Chat from "$lib/objects/Chat.svelte";
+  import GameGen1 from "$lib/objects/GameGen1.svelte";
 
   const firebaseApp =
     browser &&
@@ -61,9 +57,11 @@
   const db = browser && getFirestore();
 
   const auth = getAuth();
-  const colRef = browser && collection(db, "user");
-  let userdata = load;
+  const userdata = getUserdata();
+  const nickname = userdata?.displayName;
 
+  let error, message;
+      
   function signOutAll() {
     signOut(auth)
       .then(() => {
@@ -80,18 +78,36 @@
       data = data;
     });
 
-    io.emit("userdata", userdata);
+    io.emit("userdata", userdata?.uid);
+    
   });
 
-  console.log('uid teste', auth.currentUser);
+  function getUserdata() {
+    const user = auth.currentUser;
+    
+    if (user !== null) {
+      // The user object has basic properties such as display name, email, etc.
+      const displayName = user.displayName;
+      const email = user.email;
+      const photoURL = user.photoURL;
+      const emailVerified = user.emailVerified;
+
+      const uid = user.uid;
+
+      return user;
+    }
+  }
+
+  function getUserDeck() {
+
+  }
 
 </script>
 
 <div class="grid grid-cols-4 gap-[20px]">
   <div class="col-start-2 row-start-1 col-span-3">
     01
-    <h1>Bem vind@ a Ultrajante, !</h1>
-    <p>DB: {db}, firebaseApp {firebaseApp}</p>
+    <h1>Bem vind@ a Ultrajante, {nickname}!</h1>
   </div>
   <div class="col-start-1 row-start-2 col-end-2">
     02
@@ -104,6 +120,6 @@
   </div>
   <div class="col-start-2 row-end-3 col-end-3 col-span-3">
     04
-    <Deck />
+    <GameGen1 />
   </div>
 </div>

@@ -1,10 +1,10 @@
-import { uuid } from 'uuidv4';
+import { v4 as uuidv4 } from 'uuid';
 
 export const list = new Map();
 
 export function createCombatant() {
     let id = null;
-    do id = uuid(); while(list.has(id));
+    do id = uuidv4(); while(list.has(id));
 
     const combatant = { id, nickname: null, hitpoints: null, deck: null }
     list.set(id, combatant);

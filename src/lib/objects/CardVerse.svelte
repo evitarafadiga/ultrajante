@@ -3,12 +3,13 @@
 
     import CardFrame from "../components/CardFrame.svelte";
 
-    export let cardId, func;
+    export let cardId;
+    export let func;
 </script>
 
 <div class="shadow-black card-second bg-stone-500 grid">
     <div class="relative z-[1]"><CardFrame /></div>
-    <div class="absolute z-[0]"><Hero /></div>
+    <div class="absolute z-[0]"><Hero cardId={cardId} /></div>
 </div>
 
 <style>

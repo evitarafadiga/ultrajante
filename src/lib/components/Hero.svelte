@@ -1,9 +1,9 @@
 <script>
-    let src = '/mage.png';
+    export let cardId;
 </script>
 
 <main class="card-size">
-    <img src={src} alt="Imagem de herói" />
+    <img src={cardId} alt="Imagem de herói" />
 </main>
 
 <style>
