@@ -10,7 +10,7 @@
    let villain = villainDeck;
    let goodguy = userDeck;
 
-    export let func;
+    export let func, isActive, movefunc;
 </script>
 <div class="">
     <div class="card-second bg-stone-200 flex float-right">
@@ -21,7 +21,7 @@
 
     <div class="justify-center pt-[179px] h-[350px] w-[750px] bg-stone-200 flex">
         {#each userDeck as goodguy}
-        <Card cardId={goodguy.name + '.png'} func={func}/>
+        <Card cardId={goodguy.name + '.png'} func={func} isActive={isActive} movefunc={movefunc}/>
         {/each}
     </div>
 </div>

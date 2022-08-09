@@ -28,7 +28,7 @@
       error = err;
     }
   };
-
+  
 </script>
 
 <script>
@@ -59,6 +59,7 @@
   const auth = getAuth();
   const userdata = getUserdata();
   const nickname = userdata?.displayName;
+  const src = '';
 
   let error, message;
       
@@ -106,12 +107,12 @@
 
 <div class="grid grid-cols-4 gap-[20px]">
   <div class="col-start-2 row-start-1 col-span-3">
-    01
     <h1>Bem vind@ a Ultrajante, {nickname}!</h1>
+    <img src={src} alt={"Logotipo Ultrajante"} />
   </div>
   <div class="col-start-1 row-start-2 col-end-2">
     02
-    <InviteBox />
+    
   </div>
   <div class="col-end-6 row-start-2">
     03
