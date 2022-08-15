@@ -3,6 +3,7 @@
     import { arsenal } from "../data/arsenal";
     import { io } from "$lib/realtime";
     import { goto } from "$app/navigation";
+    import Healthbar from "$lib/components/Healthbar.svelte";
 
     let mission = {};
     let activebtn = true;
@@ -21,6 +22,16 @@
     function selectCard() {
         active = !active;
         mission = mission;
+
+    }
+
+    function callWin() {
+        console.log('Missão completa!');
+    }
+
+    function callLose() {
+        console.log('Missão perdida!');
+        userDeck.pop();
     }
 
     function setDamage(op) {
@@ -28,14 +39,20 @@
         if (op === 1) {
             let atk = arsenal['rasputin'].stats.atk;
             villainHP -= Math.floor((criticalRatio() * atk) / 10);
+            if (villainHP <= 84 * villains.length + (-84)) {
+                villains.pop();
+            }
+            
         } else {
             HP += 10;
 
         }
-        if (villainHP <= villainHP * round-1) {
-        villains.pop();
-        console.log(villains);
+
+        if (villainHP < 0) {
+            if (HP > 0) callWin();
+            if (HP < 0) callLose();
         }
+        
         villainDamage();
         round++;
     }
@@ -48,6 +65,7 @@
             villainHP += 10;
         }
 
+        if(HP < 0) callLose();
        
     }
 
@@ -67,24 +85,6 @@
             villains.push(arsenal['cebollurl']);
             
         }
-
-        const nextTurn = async () => {
-
-            let ratio = criticalRatio();
-
-            let fn = msg => {
-
-                if(msg == selectCard) {
-
-                }
-
-
-
-            }
-
-            
-
-        }
         
     }
 
@@ -92,18 +92,28 @@
 
 </script>
 
-<div>
+<div class="">
     {#if activebtn}
     <button class="btn" on:click|preventDefault={startMission}>Iniciar Missão</button>
     {/if}
     {#key mission}
-
-    <div>
+    <div class="flex overflow">
         ROUND - {round} <br>
-        HP: {HP}
-        villain: {villainHP}
-    </div>
+        {#key villainHP}
+        <div class="flex p-[20px] pl-[387px]">
+            Cebollurl: <Healthbar datavalue={villainHP} datatotal={420}/>
+        </div>
+        {/key}
+    </div>   
     <Deck
     villainDeck={villains} userDeck={userDeck} func={selectCard} isActive={active} movefunc={setDamage} />
+    
+    <div class="flex overflow">
+        {#key HP}
+        <div class="flex p-[20px]">
+            Rasputin: <Healthbar datavalue={HP} datatotal={157}/>
+        </div>
+        {/key}
+    </div>
     {/key}
 </div>

@@ -30,6 +30,40 @@
       margin: 10px;
     }
 
+    .health-bar {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 150px;
+      height: 24px;
+      padding: 2px;
+      box-shadow: 0 0 5px #20B2AA;
+      background: #2E8B57;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 3px;
+      position: relative;
+    }
+    
+    .bar {
+      background: #32CD32;
+      width: 100%;
+      height: 20px;
+      position: relative;
+      transition: width .5s linear;
+    }
+    
+    .hit {
+      background: rgba(255,255,255,0.6);
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 0px;
+      
+      transition: width .5s linear;
+    }
+
     /* w-[74px] h-[32px] rounded bg-lime-400 shadow float-right
      ... */
   }
