@@ -26,11 +26,9 @@
     }
 
     function callWin() {
-        console.log('Missão completa!');
     }
 
     function callLose() {
-        console.log('Missão perdida!');
         userDeck.pop();
     }
 
@@ -92,28 +90,36 @@
 
 </script>
 
-<div class="">
+<div class="h-[600px]">
+    {#if !activebtn}
+    <div class="grid">
+        <div class="overflow italic text-white font-bold drop-shadow-lg">
+            <div>
+                ROUND {round}
+            </div>
+            <div class="flex">
+            {#key HP}
+                <div class="flex p-5">
+                    Rasputin: <Healthbar datavalue={HP} datatotal={157}/>
+                </div>
+            {/key}
+            {#key villainHP}
+                <div class="flex p-5 pl-[200px]">
+                    Cebollurl: <Healthbar datavalue={villainHP} datatotal={420}/>
+                </div>
+            {/key}
+            </div>
+            
+        </div>
+    </div>
+    {/if}
+    {#key mission}   
+    <Deck
+    villainDeck={villains} userDeck={userDeck} func={selectCard} isActive={active} movefunc={setDamage}>
     {#if activebtn}
     <button class="btn" on:click|preventDefault={startMission}>Iniciar Missão</button>
     {/if}
-    {#key mission}
-    <div class="flex overflow">
-        ROUND - {round} <br>
-        {#key villainHP}
-        <div class="flex p-[20px] pl-[387px]">
-            Cebollurl: <Healthbar datavalue={villainHP} datatotal={420}/>
-        </div>
-        {/key}
-    </div>   
-    <Deck
-    villainDeck={villains} userDeck={userDeck} func={selectCard} isActive={active} movefunc={setDamage} />
+    </Deck>
     
-    <div class="flex overflow">
-        {#key HP}
-        <div class="flex p-[20px]">
-            Rasputin: <Healthbar datavalue={HP} datatotal={157}/>
-        </div>
-        {/key}
-    </div>
     {/key}
 </div>

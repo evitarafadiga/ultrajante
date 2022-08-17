@@ -7,7 +7,6 @@
 <main>
     <div class="card-size">
         <img src={src} alt={"Moldura de carta de herói"} />
-       
     </div>
 </main>
 

@@ -31,7 +31,7 @@
   let error = "";
   let message = "";
   const auth = getAuth();
-
+  let src = "/logo.png";
   function login() {
     let email = document.getElementById("emailInput").value;
     let password = document.getElementById("passInput").value;
@@ -158,7 +158,7 @@
       });
   }
 </script>
-
+<img src={src} alt={"Logotipo Ultrajante"} class="object-contain h-[160px] overflow"/>
 <div
   class="flex justify-center border bg-white w-[476px] h-[275px] rounded-[15px] shadow mt-[56px]"
 >

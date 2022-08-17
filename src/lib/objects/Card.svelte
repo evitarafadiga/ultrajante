@@ -5,7 +5,7 @@ import CardButtons from "$lib/components/CardButtons.svelte";
 
     import CardFrame from "../components/CardFrame.svelte";
 
-    export let cardId, func, isActive, movefunc;
+    export let cardId, func, isActive, movefunc, cardname;
     
 </script>
 
@@ -16,9 +16,9 @@ import CardButtons from "$lib/components/CardButtons.svelte";
    {#if isActive}
    <div class="absolute z-[3] translate-y-[90px] translate-x-[60px]"><CardButtons movefunc={movefunc} /></div>
    {/if}
+   <div class="absolute z-[3] pt-[174px] pl-[31px] font-semibold text-white italic text-sm">
+        {cardname}
+   </div>
     <div class="relative z-[2]"><CardFrame /></div>
     <div class="absolute z-[1]"><Hero cardId={cardId} /></div>
 </button>
-
-<style>
-</style>

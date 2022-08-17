@@ -12,16 +12,18 @@
 
     export let func, isActive, movefunc;
 </script>
-<div class="">
-    <div class="pl-[24px] card-second bg-stone-200 flex justify-start">
+<div class="justify-center h-[420px] w-[700px]">
+    <div class="pl-[24px] pt-[12px] card-second flex justify-start">
         {#each villain as villain}
-        <CardVerse cardId={villain.name + '.png'} func={func}/>
+        <CardVerse cardId={villain.name + '.png'} func={func} cardname={'Cebollurl'}/>
         {/each}
     </div>
-
-    <div class="pl-[270px] pt-[179px] h-[220px] w-[660px] bg-stone-200">
+    <div class="pl-[280px] pt-[100px]">
+    <slot />
+    </div>
+    <div class="pl-[40px] pt-[69px]">
         {#each userDeck as goodguy}
-        <Card cardId={goodguy.name + '.png'} func={func} isActive={isActive} movefunc={movefunc}/>
+        <Card cardId={goodguy.name + '.png'} func={func} isActive={isActive} movefunc={movefunc} cardname={'Rasputin'}/>
         {/each}
     </div>
 </div>

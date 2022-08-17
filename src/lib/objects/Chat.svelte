@@ -36,9 +36,9 @@
   }
 </script>
 
-<main>
+<main class="">
   <Box title="Chat">
-    <div class="overflow-auto break-all justify-start h-[281px] w-[339px]">
+    <div class="overflow-auto break-all justify-start h-[281px] w-[339px] ">
       <div
         class="translate-x-0 translate-y-0 flex flex-col-reverse easy-in-out inline"
       >

@@ -59,7 +59,7 @@
   const auth = getAuth();
   const userdata = getUserdata();
   const nickname = userdata?.displayName;
-  const src = '';
+  const src = '/logo.png';
 
   let error, message;
       
@@ -105,22 +105,30 @@
 
 </script>
 
-<div class="grid grid-cols-4 gap-[20px]">
-  <div class="col-start-2 row-start-1 col-span-3">
-    <h1>Bem vind@ a Ultrajante, {nickname}!</h1>
-    <img src={src} alt={"Logotipo Ultrajante"} />
+<div class="bg-right-bottom bg-origin-border bg-[url('/bg.png')]">
+  
+<div class="grid grid-cols-4 gap-[12px]">
+  <div class="col-start-2 row-start-1 col-span-3 h-[80px]">
+    <!--01
+    <h1>Bem vind@ a Ultrajante, {nickname}!</h1> -->
+    <img src={src} alt={"Logotipo Ultrajante"} class="object-contain h-[100px] "/>
+    
   </div>
   <div class="col-start-1 row-start-2 col-end-2">
-    02
+    <!--02-->
     
   </div>
   <div class="col-end-6 row-start-2">
-    03
+    <!--03-->
     <button class="btn float-right" on:click={signOutAll}>Sair</button>
     <Chat />
   </div>
   <div class="col-start-2 row-end-3 col-end-3 col-span-3">
-    04
+    <!--04-->
     <GameGen1 />
   </div>
+  <div class="col-start-1 col-end-5 row-start-4 row-end-7">
+    <!--05-->
+  </div>
+</div>
 </div>

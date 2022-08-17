@@ -5,9 +5,9 @@
         import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
       
         window.socket = io(
-			//"https://ultrajante-server.evitarafadiga.repl.co",
+			"https://ultrajante-server.evitarafadiga.repl.co"
 			//"localhost:5000",
-			'localhost:3000'
+			//'localhost:3000'
 			, {
             auth: {
                 username: "usuario1",
@@ -24,7 +24,7 @@
 		%sveltekit.head%
 	</head>
 	<body>
-		<div>%sveltekit.body%</div>
+		<div class="watery">%sveltekit.body%</div>
 	</body>
 	
 </html>
