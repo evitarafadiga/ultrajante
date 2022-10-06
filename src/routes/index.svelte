@@ -119,8 +119,9 @@
     
   </div>
   <div class="col-end-6 row-start-2">
-    <!--03-->
+    <!--03
     <button class="btn float-right" on:click={signOutAll}>Sair</button>
+    -->
     <Chat />
   </div>
   <div class="col-start-2 row-end-3 col-end-3 col-span-3">

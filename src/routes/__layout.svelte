@@ -7,6 +7,7 @@
   import { goto } from "$app/navigation";
   import { browser } from "$app/env";
 
+  /*
   onMount(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
@@ -18,7 +19,7 @@
         goto("/login");
       }
     });
-  });
+  }); */
 </script>
   
 <slot />

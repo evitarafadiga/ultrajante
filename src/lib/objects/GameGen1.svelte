@@ -117,7 +117,7 @@
     <Deck
     villainDeck={villains} userDeck={userDeck} func={selectCard} isActive={active} movefunc={setDamage}>
     {#if activebtn}
-    <button class="btn" on:click|preventDefault={startMission}>Iniciar Missão</button>
+    <button class="btn" on:click|preventDefault={startMission}>Iniciar Jogo</button>
     {/if}
     </Deck>
     
