@@ -14,6 +14,7 @@
                 desc={element.desc}
                 narrname={element.narrname}
                 narrpic={element.narrpic}
+                playart={element.playart}
                 bgseason={element.bgseason}
                 narrdesc={element.narrdesc}
                 playname={element.playname}

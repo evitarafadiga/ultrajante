@@ -2,14 +2,16 @@
     import NarratorCard from "./NarratorCard.svelte";
     import PlayerCard from "./PlayerCard.svelte";
 
-    export let nums, title, desc, narrname, narrpic, bgseason, narrdesc, playname, playpic, playdesc;
+    export let nums, title, desc, narrname, narrpic, playart, bgseason, narrdesc, playname, playpic, playdesc;
 </script>
 
 <main class="p-5 flex justify-center items-center">
     <div class="max-w-sm w-full lg:max-w-full lg:flex">
-        <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url({bgseason})" title="Tema da season">
+        {#if playart}
+        <div class="h-48 lg:h-auto border-l border-b rounded-t lg:border-t border-gray-400 lg:w-[150px] flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center" style="background-image: url({playart})" title="Arte do vencedor">
         </div>
-        <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+        {/if}
+        <div class="border-r border-b border-gray-400 lg:border-l-0 lg:border-r-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none  p-4 flex flex-col justify-between leading-normal">
           <div class="mb-8">
             <p class="text-sm text-gray-600 flex items-center">
               
@@ -27,7 +29,11 @@
             </div>
           </div>          
         </div>
-      </div>
+        {#if bgseason}
+        <div class="h-48 lg:h-auto border-r border-b rounded-t lg:border-l-0 lg:border-t border-gray-400 lg:w-80 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-r text-center" style="background-image: url({bgseason})" title="Tema da season">
+        </div>
+        {/if}
+    </div>
 
 </main>
 
