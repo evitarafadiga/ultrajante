@@ -2,7 +2,6 @@
 
     export let datatotal;
     export let datavalue;
-    export let func;
 
     let val = datavalue/datatotal*100;
 </script>

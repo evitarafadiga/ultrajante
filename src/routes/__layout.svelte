@@ -7,19 +7,19 @@
   import { goto } from "$app/navigation";
   import { browser } from "$app/env";
 
-  /*
-  onMount(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("Bem-vindo a Ultrajante!");
-        isLoggedIn.update(() => true);
-      } else {
-        isLoggedIn.update(() => false);
-        goto("/login");
-      }
-    });
-  }); */
+  
+  // onMount(() => {
+  //   const auth = getAuth();
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       console.log("Bem-vindo a Ultrajante!");
+  //       isLoggedIn.update(() => true);
+  //     } else {
+  //       isLoggedIn.update(() => false);
+  //       goto("/login");
+  //     }
+  //   });
+  // });
 </script>
   
 <slot />

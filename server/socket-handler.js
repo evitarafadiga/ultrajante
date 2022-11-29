@@ -31,12 +31,12 @@ export default function injectSocketIO(server) {
                 time: new Date().toLocaleString()
             });
 
-            (async () => { const usermessage = await addDoc(collection(db, "globalchat"), {
-                from: nickname,
-                message: message,
-                time: new Date().toLocaleString()
-              });
-            }) ()
+            // (async () => { const usermessage = await addDoc(collection(db, "globalchat"), {
+            //     from: nickname,
+            //     message: message,
+            //     time: new Date().toLocaleString()
+            //   });
+            // }) ()
         });
 
         socket.on('history-message', (data) => {
