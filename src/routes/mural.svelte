@@ -3,8 +3,10 @@
     import { each } from "svelte/internal";
 
     import { winnerlist } from "$lib/Winners";
+    import TopBar from "$lib/components/TopBar.svelte";
 </script>
 
+<TopBar/>
 <ul>
     {#each winnerlist as element}
         <li>

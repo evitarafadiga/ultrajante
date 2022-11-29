@@ -158,7 +158,6 @@
       });
   }
 </script>
-<img src={src} alt={"Logotipo Ultrajante"} class="object-contain h-[160px] overflow"/>
 <div
   class="flex justify-center border bg-white w-[476px] h-[275px] rounded-[15px] shadow mt-[56px]"
 >
